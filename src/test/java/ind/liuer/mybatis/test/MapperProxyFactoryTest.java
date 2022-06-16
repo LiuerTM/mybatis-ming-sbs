@@ -38,7 +38,7 @@ public class MapperProxyFactoryTest {
 
     @Test
     public void testMapperRegister() {
-        MapperRegistry mapperRegistry = new MapperRegistry();
+        MapperRegistry mapperRegistry = new MapperRegistry(null);
         String packageName = "ind.liuer.ind.liuer.mybatis.dao";
         mapperRegistry.addMappers(packageName);
         UserMapper userMapper = mapperRegistry.getMapper(UserMapper.class);

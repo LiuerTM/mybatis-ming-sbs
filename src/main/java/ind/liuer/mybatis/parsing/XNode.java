@@ -92,6 +92,10 @@ public class XNode {
 
 
     // ===================================================================================
+    public List<XNode> evalNodes(String expression) {
+        return xpathParse.evalNodes(node, expression);
+    }
+
 
     public XNode evalNode(String expression) {
         return xpathParse.evalNode(node, expression);

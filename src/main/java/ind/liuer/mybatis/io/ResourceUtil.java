@@ -53,4 +53,9 @@ public class ResourceUtil {
         }
         return properties;
     }
+
+    public static Class<?> classForName(String type) throws ClassNotFoundException {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        return classLoader.loadClass(type);
+    }
 }

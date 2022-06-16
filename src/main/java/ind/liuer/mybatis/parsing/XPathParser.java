@@ -4,6 +4,7 @@ import ind.liuer.mybatis.builder.BuilderException;
 import ind.liuer.mybatis.builder.xml.XmlMybatisEntityResolver;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.*;
 
 import javax.xml.XMLConstants;
@@ -15,6 +16,8 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -27,7 +30,7 @@ public class XPathParser {
     /**
      * 校验
      */
-    private final EntityResolver entityResolver =  new XmlMybatisEntityResolver();
+    private final EntityResolver entityResolver = new XmlMybatisEntityResolver();
 
     /**
      * XML文档
@@ -88,6 +91,15 @@ public class XPathParser {
 
     public void setVariables(Properties variables) {
         this.variables = variables;
+    }
+
+    public List<XNode> evalNodes(Object root, String expression) {
+        List<XNode> xNodes = new ArrayList<>();
+        NodeList nodes = (NodeList) evaluate(root, expression, XPathConstants.NODESET);
+        for (int i = 0; i < nodes.getLength(); i++) {
+            xNodes.add(new XNode(this, nodes.item(i), variables));
+        }
+        return xNodes;
     }
 
     public XNode evalNode(String expression) {

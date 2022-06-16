@@ -1,6 +1,7 @@
 package ind.liuer.mybatis.binding;
 
 import ind.liuer.mybatis.io.ClassScanner;
+import ind.liuer.mybatis.session.Configuration;
 
 import java.io.IOException;
 import java.util.*;
@@ -14,7 +15,12 @@ import java.util.*;
  */
 public class MapperRegistry {
 
+    private final Configuration configuration;
     private final Map<Class<?>, MapperProxyFactory<?>> knownMappers = new HashMap<>();
+
+    public MapperRegistry(Configuration configuration) {
+        this.configuration = configuration;
+    }
 
     @SuppressWarnings("unchecked")
     public <T> T getMapper(Class<T> type) {
